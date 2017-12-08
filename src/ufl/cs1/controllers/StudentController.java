@@ -221,14 +221,48 @@ public final class StudentController implements DefenderController {
 			thisDefender = _thisDefender;
 		}
 		//based on the current game conditions it will decide what the defender should do
+		private Node closestPill = null;
+		private Node scndClosestPill = null;
+		List <Defender> otherDefenders = currentGame.getDefenders();
 		public int updateDefender()
 		{
-			int devastatorToPill = helpers.devastatorToPillDistance();
-			defenderStatus defenserState = helpers.vulnerableStatus(thisDefender);
+			int defenderADistance = thisDefender.getLocation().getPathDistance(redHunter.getLocation());
+			int defenderBDistance = thisDefender.getLocation().getPathDistance(orangePursuer.getLocation());
+			int defenderCDistance = thisDefender.getLocation().getPathDistance(pinkChaser.getLocation());
+			int averageDefenderDistance = (defenderADistance + defenderBDistance + defenderCDistance) / 3;
+			otherDefenders.remove(thisDefender);
+			int defenderToDevastatorDist = thisDefender.getLocation().getPathDistance(devastator.getLocation());
+
+			if (powerPillList.size() > 0)
+			{
+				int devastatorToPill = helpers.devastatorToPillDistance();
+				closestPill = closestPillToDefender();
+			}
+			if (powerPillList.size() > 1)
+				scndClosestPill = secondClosestPillToDefender();
+			defenderStatus defenderState = helpers.vulnerableStatus(thisDefender);
 			int remainingPills = powerPillList.size();
 			if (remainingPills == 0)
 			{
-				//want to try going towards emptynode
+				if (averageDefenderDistance < 5) {
+					thisDefender.getTargetActor(defendersList, true);
+					return thisDefender.getNextDir(closestDefender().getLocation(), false);
+				}
+				else if (defenderToDevastatorDist > 10)
+					chaseMode(devastator.getLocation());
+				else
+					//draw devastator towards and empty node
+				{
+					try
+					{
+						List<Node> neighbors = thisDefender.getLocation().getNeighbors();
+
+
+					}
+				}
+
+
+
 			}
 		return 0;
 		}
@@ -241,12 +275,47 @@ public final class StudentController implements DefenderController {
 		//simply runs away from devastator
 		public int fleeMode()
 		{
-			return 0;
+			return thisDefender.getNextDir(devastator.getLocation(), false);
 		}
 		//depending on devastator location and the location of the other ghosts, it will draw devastator towards empty nodes
 		public int distractMode()
 		{
 			return 0;
+		}
+		private int chaseMode(Node target)
+		{
+			return thisDefender.getNextDir(target, true);
+		}
+		private Node closestPillToDefender()
+		{
+			return thisDefender.getTargetNode(powerPillList, true);
+		}
+		private Node secondClosestPillToDefender()
+		{
+			if (closestPill != null)
+				closestPill = closestPillToDefender();
+			else
+			{
+				List <Node> powerPillCopy = currentGame.getPowerPillList();
+				powerPillCopy.remove(closestPill);
+				return thisDefender.getTargetNode(powerPillCopy, true);
+			}
+		}
+		private Defender closestDefender()
+		{
+			int min = thisDefender.getLocation().getPathDistance(otherDefenders.get(1).getLocation());
+			Defender closest = otherDefenders.get(0);
+
+			for (Defender defender: otherDefenders)
+			{
+				int distance = thisDefender.getLocation().getPathDistance(defender.getLocation());
+				if ( distance < min)
+				{
+					min = distance;
+					closest = defender;
+				}
+			}return closest;
+
 		}
 	}
 	public enum defenderMode {
@@ -355,6 +424,7 @@ public final class StudentController implements DefenderController {
 	}
 	public interface blockingDefender{
 		//based on the current game conditions it will decide what the defender should do
+
 		int updateDefender();
 		//defender will pace around the node to defend it
 		int paceNodeMode(Node target);
@@ -362,6 +432,5 @@ public final class StudentController implements DefenderController {
 		int fleeMode();
 		//depending on devastator location and the location of the other ghosts, it will draw devastator towards empty nodes
 		int distractMode();
-
 	}
 }

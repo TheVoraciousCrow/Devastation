@@ -34,10 +34,11 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="360" column="42" lean-forward="true" selection-start-line="360" selection-start-column="42" selection-end-line="360" selection-end-column="42" />
+            <state relative-caret-position="398">
+              <caret line="262" column="16" lean-forward="true" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="class#AttackDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="method#updateDefender#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="method#chaseObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="method#shadowObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
@@ -46,6 +47,12 @@
                 <element signature="method#defend#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="method#flock#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="method#flock#1;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
+                <element signature="e#8944#8945#0" expanded="true" />
+                <element signature="e#9016#9017#0" expanded="true" />
+                <element signature="e#9225#9226#0" expanded="true" />
+                <element signature="e#9278#9279#0" expanded="true" />
+                <element signature="method#secondClosestPillToDefender#0;class#BlockingDefender1#0;class#StudentController#0" expanded="false" />
+                <element signature="method#closestDefender#0;class#BlockingDefender1#0;class#StudentController#0" expanded="false" />
                 <element signature="class#defenderMode#0;class#StudentController#0" expanded="false" />
                 <element signature="class#defenderStatus#0;class#StudentController#0" expanded="false" />
                 <element signature="method#shutdown#0;class#StudentController#0" expanded="false" />
@@ -55,6 +62,7 @@
                 <element signature="method#devastatorToPillDistance#0;class#helperClass#0;class#StudentController#0" expanded="false" />
                 <element signature="method#vulnerableStatus#0;class#helperClass#0;class#StudentController#0" expanded="false" />
                 <element signature="method#getNearestEmptyNode#0;class#helperClass#0;class#StudentController#0" expanded="false" />
+                <element signature="class#helperMethods#0;class#StudentController#0" expanded="false" />
                 <element signature="class#attackingDefender#0;class#StudentController#0" expanded="false" />
               </folding>
             </state>
@@ -283,7 +291,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestAgent - Scored">
+  <component name="RunManager" selected="Application.TestAgent - Visual">
     <configuration name="Example - Debug" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="game.Exec" />
@@ -795,7 +803,7 @@
       <workItem from="1512341898271" duration="598000" />
       <workItem from="1512352311154" duration="2099000" />
       <workItem from="1512442781828" duration="4582000" />
-      <workItem from="1512577151254" duration="26340000" />
+      <workItem from="1512577151254" duration="30781000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Atacking Defender Method">
       <created>1512670990284</created>
@@ -832,11 +840,18 @@
       <option name="project" value="LOCAL" />
       <updated>1512758132069</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Goalie only Goes up, and does super well?!?! 5439.6">
+      <created>1512762222077</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1512762222077</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179771000" />
+    <option name="totallyTimeSpent" value="184212000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="887" height="877" extended-state="0" />
@@ -923,7 +938,8 @@
     <MESSAGE value="Matched the Example Method Exactly" />
     <MESSAGE value="Beat the example" />
     <MESSAGE value="Fixed Empty Node Method; Score:7453.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Empty Node Method; Score:7453.3" />
+    <MESSAGE value="Goalie only Goes up, and does super well?!?! 5439.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Goalie only Goes up, and does super well?!?! 5439.6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -942,19 +958,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>330</line>
+          <line>399</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>333</line>
+          <line>402</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>331</line>
+          <line>400</line>
           <properties />
           <option name="timeStamp" value="55" />
         </line-breakpoint>
@@ -969,7 +985,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="60" />
+      <option name="time" value="61" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1198,10 +1214,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="360" column="42" lean-forward="true" selection-start-line="360" selection-start-column="42" selection-end-line="360" selection-end-column="42" />
+        <state relative-caret-position="398">
+          <caret line="262" column="16" lean-forward="true" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#AttackDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="method#updateDefender#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="method#chaseObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="method#shadowObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
@@ -1210,6 +1227,12 @@
             <element signature="method#defend#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="method#flock#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="method#flock#1;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
+            <element signature="e#8944#8945#0" expanded="true" />
+            <element signature="e#9016#9017#0" expanded="true" />
+            <element signature="e#9225#9226#0" expanded="true" />
+            <element signature="e#9278#9279#0" expanded="true" />
+            <element signature="method#secondClosestPillToDefender#0;class#BlockingDefender1#0;class#StudentController#0" expanded="false" />
+            <element signature="method#closestDefender#0;class#BlockingDefender1#0;class#StudentController#0" expanded="false" />
             <element signature="class#defenderMode#0;class#StudentController#0" expanded="false" />
             <element signature="class#defenderStatus#0;class#StudentController#0" expanded="false" />
             <element signature="method#shutdown#0;class#StudentController#0" expanded="false" />
@@ -1219,6 +1242,7 @@
             <element signature="method#devastatorToPillDistance#0;class#helperClass#0;class#StudentController#0" expanded="false" />
             <element signature="method#vulnerableStatus#0;class#helperClass#0;class#StudentController#0" expanded="false" />
             <element signature="method#getNearestEmptyNode#0;class#helperClass#0;class#StudentController#0" expanded="false" />
+            <element signature="class#helperMethods#0;class#StudentController#0" expanded="false" />
             <element signature="class#attackingDefender#0;class#StudentController#0" expanded="false" />
           </folding>
         </state>
