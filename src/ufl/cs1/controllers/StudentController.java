@@ -221,9 +221,10 @@ public final class StudentController implements DefenderController {
 			thisDefender = _thisDefender;
 		}
 		//based on the current game conditions it will decide what the defender should do
-		private Node closestPill = null;
-		private Node scndClosestPill = null;
+		private Node closestPillDefender = null;
+		private Node scndClosestPillDefender = null;
 		List <Defender> otherDefenders = currentGame.getDefenders();
+		private int devastatorToPillDistance;
 		public int updateDefender()
 		{
 			int defenderADistance = thisDefender.getLocation().getPathDistance(redHunter.getLocation());
@@ -232,10 +233,11 @@ public final class StudentController implements DefenderController {
 			int averageDefenderDistance = (defenderADistance + defenderBDistance + defenderCDistance) / 3;
 			otherDefenders.remove(thisDefender);
 			int defenderToDevastatorDist = thisDefender.getLocation().getPathDistance(devastator.getLocation());
+			Actor closestToDevastator = devastator.getTargetActor(defendersList, true);
 
 			if (powerPillList.size() > 0)
 			{
-				int devastatorToPill = helpers.devastatorToPillDistance();
+				devastatorToPillDistance = helpers.devastatorToPillDistance();
 			}
 			defenderStatus defenderState = helpers.vulnerableStatus(thisDefender);
 			int remainingPills = powerPillList.size();
@@ -253,18 +255,7 @@ public final class StudentController implements DefenderController {
 				{
 					try
 					{
-						Node target;
-						List<Node> neighbors = thisDefender.getLocation().getNeighbors();
-						for (Node neighbor: neighbors) {
-							if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
-								return thisDefender.getNextDir(neighbor, true);
-						}
-						List<Node> neighborsDev = devastator.getLocation().getNeighbors();
-						for (Node neighbor: neighborsDev) {
-							if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
-								return thisDefender.getNextDir(neighbor, true);
-						}
-						return 0; //if no neighbors or neighbors aren't empty, go up; this seems to work well
+						return goTowardsEmptyNode();
 					}
 					catch(Exception e)
 					{
@@ -273,13 +264,37 @@ public final class StudentController implements DefenderController {
 				}
 			}
 			else if (remainingPills == 1)
-				return paceNodeMode(powerPillList.get(0));
+				if (defenderState == defenderStatus.blinking || defenderState == defenderStatus.normal)
+					return paceNodeMode(powerPillList.get(0));
+				else if (defenderState == defenderStatus.vulnerable)
+				{
+					return goTowardsEmptyNode();
+				}
+
+
 			else if (remainingPills > 1)
 			{
-				scndClosestPill = secondClosestPillToDefender();
-				closestPill = closestPillToDefender();
+				scndClosestPillDefender = secondClosestPillToDefender();
+				closestPillDefender = closestPillToDefender();
+				int defenderToClosestPillDist = closestPillDefender.getPathDistance(thisDefender.getLocation());
+				if (defenderState == defenderStatus.normal)
+				{
+					if (devastatorToPillDistance < defenderToClosestPillDist) //if devastator is closer to pill than goalie,goalie goes to 2nd closest pill
+						return chaseMode(scndClosestPillDefender);
+					else
+						return chaseMode(closestPillDefender);
+				}
+				else if (defenderState == defenderStatus.vulnerable)
+				{
+					if (averageDefenderDistance < 5) // the defenders are too close, scatter from them
+					{
+						return thisDefender.getNextDir(closestDefender().getLocation(), false);
+					}
+					return goTowardsEmptyNode();
+				}
+				else if (defenderState == defenderStatus.blinking)
+					return chaseMode(closestPillDefender);
 			}
-
 		return 0;
 		}
 
@@ -310,11 +325,11 @@ public final class StudentController implements DefenderController {
 		}
 		private Node secondClosestPillToDefender()
 		{
-			if (closestPill != null)
-				closestPill = closestPillToDefender();
+			if (closestPillDefender != null)
+				closestPillDefender = closestPillToDefender();
 
 				List <Node> powerPillCopy = currentGame.getPowerPillList();
-				powerPillCopy.remove(closestPill);
+				powerPillCopy.remove(closestPillDefender);
 				return thisDefender.getTargetNode(powerPillCopy, true);
 		}
 		private Defender closestDefender()
@@ -332,6 +347,21 @@ public final class StudentController implements DefenderController {
 				}
 			}return closest;
 
+		}
+		private int goTowardsEmptyNode()
+		{
+			Node target;
+			List<Node> neighbors = thisDefender.getLocation().getNeighbors();
+			for (Node neighbor: neighbors) {
+				if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
+					return thisDefender.getNextDir(neighbor, true);
+			}
+			List<Node> neighborsDev = devastator.getLocation().getNeighbors();
+			for (Node neighbor: neighborsDev) {
+				if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
+					return thisDefender.getNextDir(neighbor, true);
+			}
+			return 0; //if no neighbors or neighbors aren't empty, go up; this seems to work wel
 		}
 	}
 	public enum defenderMode {
