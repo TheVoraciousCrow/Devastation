@@ -236,15 +236,13 @@ public final class StudentController implements DefenderController {
 			if (powerPillList.size() > 0)
 			{
 				int devastatorToPill = helpers.devastatorToPillDistance();
-				closestPill = closestPillToDefender();
 			}
-			if (powerPillList.size() > 1)
-				scndClosestPill = secondClosestPillToDefender();
 			defenderStatus defenderState = helpers.vulnerableStatus(thisDefender);
 			int remainingPills = powerPillList.size();
 			if (remainingPills == 0)
 			{
-				if (averageDefenderDistance < 5) {
+				if (averageDefenderDistance < 5)
+				{
 					thisDefender.getTargetActor(defendersList, true);
 					return thisDefender.getNextDir(closestDefender().getLocation(), false);
 				}
@@ -255,22 +253,42 @@ public final class StudentController implements DefenderController {
 				{
 					try
 					{
+						Node target;
 						List<Node> neighbors = thisDefender.getLocation().getNeighbors();
-
-
+						for (Node neighbor: neighbors) {
+							if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
+								return thisDefender.getNextDir(neighbor, true);
+						}
+						List<Node> neighborsDev = devastator.getLocation().getNeighbors();
+						for (Node neighbor: neighborsDev) {
+							if (neighbor != null && !(neighbor.isPill() || neighbor.isPowerPill()))
+								return thisDefender.getNextDir(neighbor, true);
+						}
+						return 0; //if no neighbors or neighbors aren't empty, go up; this seems to work well
+					}
+					catch(Exception e)
+					{
+						return 0;
 					}
 				}
-
-
-
 			}
+			else if (remainingPills == 1)
+				return paceNodeMode(powerPillList.get(0));
+			else if (remainingPills > 1)
+			{
+				scndClosestPill = secondClosestPillToDefender();
+				closestPill = closestPillToDefender();
+			}
+
 		return 0;
 		}
 
 		//defender will pace around the node to defend it
 		public int paceNodeMode(Node target)
 		{
-			return 0;
+			try{return thisDefender.getNextDir(thisDefender.getPathTo(target).get(1), true);}
+			catch(Exception e){return thisDefender.getNextDir(devastator.getLocation(), true);
+			}
 		}
 		//simply runs away from devastator
 		public int fleeMode()
@@ -294,12 +312,10 @@ public final class StudentController implements DefenderController {
 		{
 			if (closestPill != null)
 				closestPill = closestPillToDefender();
-			else
-			{
+
 				List <Node> powerPillCopy = currentGame.getPowerPillList();
 				powerPillCopy.remove(closestPill);
 				return thisDefender.getTargetNode(powerPillCopy, true);
-			}
 		}
 		private Defender closestDefender()
 		{
