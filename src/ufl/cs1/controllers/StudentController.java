@@ -81,6 +81,19 @@ public final class StudentController implements DefenderController {
 		{
 			thisDefender = _thisDefender;
 		}
+		public int uodateDefender()
+		{
+			if (thisDefender.getLocation().isJunction());
+				return 0;
+			else
+			{
+
+			}
+
+
+			return 0;
+		}
+
 		public int chaseObject(Node target)
 		{
 			int action = 0;
