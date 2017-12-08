@@ -101,7 +101,7 @@ public final class StudentController implements DefenderController {
 					int devastatorToPill = helpers.devastatorToPillDistance();
 					if (devastatorToPill < 5 && closestDefender == thisDefender) //if devastator is close tot the pill and hes closest defender, self sacrifice so the others can run
 						return sacrifice(thisDefender);
-					else if (devastatorToPill < 15)
+					else if (devastatorToPill < 5)
 					{
 						return flee(devastator.getLocation());
 					}
