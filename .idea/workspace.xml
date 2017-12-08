@@ -34,8 +34,8 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="103" column="49" lean-forward="false" selection-start-line="103" selection-start-column="49" selection-end-line="103" selection-end-column="49" />
+            <state relative-caret-position="218">
+              <caret line="325" column="21" lean-forward="true" selection-start-line="325" selection-start-column="21" selection-end-line="325" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#chaseObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
@@ -50,7 +50,6 @@
                 <element signature="method#closestPowerPillToDevastator#0;class#helperClass#0;class#StudentController#0" expanded="false" />
                 <element signature="method#devastatorToPillDistance#0;class#helperClass#0;class#StudentController#0" expanded="false" />
                 <element signature="method#vulnerableStatus#0;class#helperClass#0;class#StudentController#0" expanded="false" />
-                <element signature="method#getNearestEmptyNode#0;class#helperClass#0;class#StudentController#0" expanded="false" />
                 <element signature="class#helperMethods#0;class#StudentController#0" expanded="false" />
                 <element signature="class#blockingDefender#0;class#StudentController#0" expanded="false" />
               </folding>
@@ -792,7 +791,7 @@
       <workItem from="1512341898271" duration="598000" />
       <workItem from="1512352311154" duration="2099000" />
       <workItem from="1512442781828" duration="4582000" />
-      <workItem from="1512577151254" duration="19111000" />
+      <workItem from="1512577151254" duration="22282000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Atacking Defender Method">
       <created>1512670990284</created>
@@ -815,11 +814,18 @@
       <option name="project" value="LOCAL" />
       <updated>1512754023427</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Beat the example">
+      <created>1512754894265</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1512754894265</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172542000" />
+    <option name="totallyTimeSpent" value="175713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="887" height="877" extended-state="0" />
@@ -833,7 +839,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.503367" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27621484" sideWeight="0.496633" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27621484" sideWeight="0.496633" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -904,7 +910,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated Atacking Defender Method" />
     <MESSAGE value="Matched the Example Method Exactly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Matched the Example Method Exactly" />
+    <MESSAGE value="Beat the example" />
+    <option name="LAST_COMMIT_MESSAGE" value="Beat the example" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -921,6 +928,24 @@
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
+          <line>332</line>
+          <properties />
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
+          <line>335</line>
+          <properties />
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
+          <line>333</line>
+          <properties />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -932,7 +957,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="52" />
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1040,6 +1065,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1160,8 +1186,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="103" column="49" lean-forward="false" selection-start-line="103" selection-start-column="49" selection-end-line="103" selection-end-column="49" />
+        <state relative-caret-position="218">
+          <caret line="325" column="21" lean-forward="true" selection-start-line="325" selection-start-column="21" selection-end-line="325" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#chaseObject#0;class#AttackDefender1#0;class#StudentController#0" expanded="false" />
@@ -1176,7 +1202,6 @@
             <element signature="method#closestPowerPillToDevastator#0;class#helperClass#0;class#StudentController#0" expanded="false" />
             <element signature="method#devastatorToPillDistance#0;class#helperClass#0;class#StudentController#0" expanded="false" />
             <element signature="method#vulnerableStatus#0;class#helperClass#0;class#StudentController#0" expanded="false" />
-            <element signature="method#getNearestEmptyNode#0;class#helperClass#0;class#StudentController#0" expanded="false" />
             <element signature="class#helperMethods#0;class#StudentController#0" expanded="false" />
             <element signature="class#blockingDefender#0;class#StudentController#0" expanded="false" />
           </folding>

@@ -110,6 +110,8 @@ public final class StudentController implements DefenderController {
 						defenderStatus defenderVulnerability = helpers.vulnerableStatus(thisDefender);
 						if (defenderVulnerability == defenderStatus.vulnerable)
 							return flee(devastator.getLocation());
+						else if (defenderVulnerability == defenderStatus.blinking)
+							return distract(thisDefender);
 						else
 							return chaseObject(devastator.getLocation());
 					}
@@ -308,18 +310,30 @@ public final class StudentController implements DefenderController {
 			else
 				return defenderStatus.blinking;
 		}
-		public Node getNearestEmptyNode(Actor personOfInterest) {
+		public Node getNearestEmptyNode(Actor personOfInterest)
+		{
 			Node to = personOfInterest.getLocation();
 			List<Node> neighbors = to.getNeighbors();
-			if (neighbors.size() > 0) {
-				for (Node node : neighbors) {
-					if (node.isPill()) return node;
+			try {
+				if (neighbors.size() > 0)
+				{
+					for (Node node : neighbors)
+					{
+						if (node != null && !node.isPill())
+						{
+							return node;
+						}
+					}
+					return personOfInterest.getPathTo(currentGame.getCurMaze().getInitialAttackerPosition()).get(1);
 				}
+				return personOfInterest.getPathTo(currentGame.getCurMaze().getInitialAttackerPosition()).get(1);
+
 			}
-			List<Defender> defenderList = currentGame.getDefenders();
-			int direction = 0;
-			direction = personOfInterest.getNextDir(personOfInterest.getTargetActor(defenderList, true).getLocation(), false); //finds the closest actor and moces away from him
-			return to.getNeighbor(direction);
+			catch (Exception e)
+			{
+				System.out.println("Oh Crap");
+				return devastator.getLocation();
+			}
 		}
 	}
 		public interface helperMethods
