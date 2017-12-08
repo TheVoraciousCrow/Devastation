@@ -34,8 +34,8 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1976">
-              <caret line="382" column="5" lean-forward="true" selection-start-line="382" selection-start-column="5" selection-end-line="382" selection-end-column="5" />
+            <state relative-caret-position="405">
+              <caret line="297" column="39" lean-forward="false" selection-start-line="297" selection-start-column="39" selection-end-line="297" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#AttackDefender1#0;class#StudentController#0" expanded="false" />
@@ -200,7 +200,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="887" />
+    <option name="width" value="1009" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -289,7 +289,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Example - Scored">
+  <component name="RunManager" selected="Application.TestAgent - Scored">
     <configuration name="Example - Debug" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="game.Exec" />
@@ -801,7 +801,7 @@
       <workItem from="1512341898271" duration="598000" />
       <workItem from="1512352311154" duration="2099000" />
       <workItem from="1512442781828" duration="4582000" />
-      <workItem from="1512577151254" duration="35313000" />
+      <workItem from="1512577151254" duration="37271000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Atacking Defender Method">
       <created>1512670990284</created>
@@ -859,14 +859,21 @@
       <option name="project" value="LOCAL" />
       <updated>1512768756559</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Goalie Method Finished; Score: 4625.2">
+      <created>1512771215317</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1512771215317</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188744000" />
+    <option name="totallyTimeSpent" value="190702000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="887" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1009" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -877,7 +884,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.503367" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0741688" sideWeight="0.496633" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15601023" sideWeight="0.496633" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02685422" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -953,7 +960,8 @@
     <MESSAGE value="Goalie only Goes up, and does super well?!?! 5439.6" />
     <MESSAGE value="Began work on goalieClass" />
     <MESSAGE value="Goalie Class: Pills =0,1 cases handled. Score: 4852.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Goalie Class: Pills =0,1 cases handled. Score: 4852.2" />
+    <MESSAGE value="Goalie Method Finished; Score: 4625.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Goalie Method Finished; Score: 4625.2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -966,25 +974,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>99</line>
+          <line>96</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>445</line>
+          <line>448</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>448</line>
+          <line>451</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java</url>
-          <line>446</line>
+          <line>449</line>
           <properties />
           <option name="timeStamp" value="55" />
         </line-breakpoint>
@@ -1228,8 +1236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="382" column="5" lean-forward="true" selection-start-line="382" selection-start-column="5" selection-end-line="382" selection-end-column="5" />
+        <state relative-caret-position="405">
+          <caret line="297" column="39" lean-forward="false" selection-start-line="297" selection-start-column="39" selection-end-line="297" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#AttackDefender1#0;class#StudentController#0" expanded="false" />

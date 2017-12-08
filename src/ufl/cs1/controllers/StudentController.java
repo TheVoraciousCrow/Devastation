@@ -22,18 +22,19 @@ public final class StudentController implements DefenderController {
 	private Game currentGame = null;
 	private Attacker devastator = null;
 	private List<Defender> defendersList = null;
+			//Creates names to differentiate between each defender
 	private Defender redHunter;
 	private Defender pinkChaser;
 	private Defender orangePursuer;
 	private Defender blueGoalie;
-
+			//These are the classes for types of defenders, whose methods will create the unique behavior
 	private attackingDefender redHunterClass;
 	private attackingDefender pinkChaserClass;
 	private attackingDefender orangePursuerClass;
 	private blockingDefender blueGoalieClass;
 
 	List<Node> powerPillList;
-
+			//This class contains methods that will assist the defenders methods
 	private helperClass helpers;
 
 	public void init(Game game)
@@ -41,31 +42,27 @@ public final class StudentController implements DefenderController {
 	}
 
 	public int[] update(Game game, long timeDue) {
+
 		int[] actions = new int[4];
 		StudentController.this.currentGame = game;
 		StudentController.this.devastator = game.getAttacker();
 		StudentController.this.defendersList = currentGame.getDefenders();
-		powerPillList = currentGame.getPowerPillList();
-
+		StudentController.this.powerPillList = currentGame.getPowerPillList();
+				//Assigns defender names to the actual defender objects
 		redHunter = defendersList.get(0);
 		pinkChaser = defendersList.get(1);
 		orangePursuer = defendersList.get(2);
 		blueGoalie = defendersList.get(3);
 
+				//Initializes the needed classes for the defenders, and assigns their type
 		redHunterClass = new AttackDefender1(redHunter);
 		pinkChaserClass =  new AttackDefender1(pinkChaser);
 		orangePursuerClass  = new AttackDefender1(orangePursuer);
 		blueGoalieClass  = new BlockingDefender1(blueGoalie);
 
+				//initializes the helper class
 		helpers = new helperClass(game,devastator,redHunter,pinkChaser,orangePursuer,blueGoalie);
-
-		/*
-			actions[0] = redHunterClass.flee(this.currentGame.getAttacker().getLocation()); //red
-			actions[1] = pinkChaserClass.flee(this.currentGame.getAttacker().getLocation()); //pinky
-			actions[2] = orangePursuerClass.flee(this.currentGame.getAttacker().getLocation()); //orange
-		//this is temporary until Hannah creates the class definition
-			actions[3] = redHunterClass.chaseObject(this.currentGame.getAttacker().getLocation()); //teal/blue = Inky
-		*/
+				//Returns actions if needed
 		actions[0] = redHunterClass.updateDefender();
 		actions[1] = pinkChaserClass.updateDefender();
 		actions[2] = orangePursuerClass.updateDefender();
@@ -211,58 +208,64 @@ public final class StudentController implements DefenderController {
 		}
 	}
 
-
 	public class BlockingDefender1 implements blockingDefender
 	{
 		Defender thisDefender;
-
+		//Constuctor to initialize the defender to which the methods will reference
 		BlockingDefender1(Defender _thisDefender)
 		{
 			thisDefender = _thisDefender;
 		}
-		//based on the current game conditions it will decide what the defender should do
+				//Create some helpful variables
 		private Node closestPillDefender = null;
 		private Node scndClosestPillDefender = null;
 		List <Defender> otherDefenders = currentGame.getDefenders();
 		private int devastatorToPillDistance;
+
+				//based on the current game conditions, it will decide what the defender should do
 		public int updateDefender()
 		{
+			int remainingPills = powerPillList.size();
+			defenderStatus defenderState = helpers.vulnerableStatus(thisDefender); 				//This will tell if defender is vulnerable, blinking, or normal
+					//Determine how far each defender is from the BlueGoalie
 			int defenderADistance = thisDefender.getLocation().getPathDistance(redHunter.getLocation());
 			int defenderBDistance = thisDefender.getLocation().getPathDistance(orangePursuer.getLocation());
 			int defenderCDistance = thisDefender.getLocation().getPathDistance(pinkChaser.getLocation());
+					//This takes the average distance, which will be used when the defenders are too close to one another
+					//This prevents defenders from looping endlessly when devastator chases
 			int averageDefenderDistance = (defenderADistance + defenderBDistance + defenderCDistance) / 3;
+					//Removes the Blue Goalie from the defender list so it consists only of the other three defenders
 			otherDefenders.remove(thisDefender);
 			int defenderToDevastatorDist = thisDefender.getLocation().getPathDistance(devastator.getLocation());
 			Actor closestToDevastator = devastator.getTargetActor(defendersList, true);
 
-			if (powerPillList.size() > 0)
+			if (powerPillList.size() > 0)		//This is just a check to avoid out of bounds exceptions
 			{
-				devastatorToPillDistance = helpers.devastatorToPillDistance();
+				devastatorToPillDistance = helpers.devastatorToPillDistance(); //distance from devastator to closest power pill
 			}
-			defenderStatus defenderState = helpers.vulnerableStatus(thisDefender);
-			int remainingPills = powerPillList.size();
+
 			if (remainingPills == 0)
 			{
+				//Description:
+				//If no pills are remaining it should check averageDefenderDistance to ensure the others aren't too close
+				//and avoid a infinite loop.
 				if (averageDefenderDistance < 5)
 				{
 					thisDefender.getTargetActor(defendersList, true);
 					return thisDefender.getNextDir(closestDefender().getLocation(), false);
 				}
-				else if (defenderToDevastatorDist > 10)
+				//Next, if devastator is too far, BlueGoalie should move towards him to try and block
+				else if (defenderToDevastatorDist > 15)
 					chaseMode(devastator.getLocation());
 				else
-					//draw devastator towards and empty node
+					//draw devastator towards an empty node
 				{
-					try
-					{
-						return goTowardsEmptyNode();
-					}
-					catch(Exception e)
-					{
-						return 0;
-					}
+					try {return goTowardsEmptyNode();}
+					catch(Exception e) {return 0;}
 				}
 			}
+					//Now if there is a pill remaining Blue Goalie will protect it if it is normal or blinking
+					//or go towards an empty node if Blue Goalie is vulnerale as a distraction
 			else if (remainingPills == 1)
 				if (defenderState == defenderStatus.blinking || defenderState == defenderStatus.normal)
 					return paceNodeMode(powerPillList.get(0));
@@ -270,8 +273,7 @@ public final class StudentController implements DefenderController {
 				{
 					return goTowardsEmptyNode();
 				}
-
-
+					//If there are 2-4 pills; check the status of BLue Goalie and respond accordingly.
 			else if (remainingPills > 1)
 			{
 				scndClosestPillDefender = secondClosestPillToDefender();
@@ -279,7 +281,8 @@ public final class StudentController implements DefenderController {
 				int defenderToClosestPillDist = closestPillDefender.getPathDistance(thisDefender.getLocation());
 				if (defenderState == defenderStatus.normal)
 				{
-					if (devastatorToPillDistance < defenderToClosestPillDist) //if devastator is closer to pill than goalie,goalie goes to 2nd closest pill
+							//if devastator is closer to pill than goalie,goalie goes to 2nd closest pill
+					if (devastatorToPillDistance < defenderToClosestPillDist)
 						return chaseMode(scndClosestPillDefender);
 					else
 						return chaseMode(closestPillDefender);
