@@ -66,14 +66,10 @@ public final class StudentController implements DefenderController {
 		//this is temporary until Hannah creates the class definition
 			actions[3] = redHunterClass.chaseObject(this.currentGame.getAttacker().getLocation()); //teal/blue = Inky
 		*/
-		actions[0] = redHunterClass.sacrifice(redHunter);
+		actions[0] = redHunterClass.updateDefender();
 		actions[1] = pinkChaserClass.updateDefender();
 		actions[2] = orangePursuerClass.updateDefender();
-		List<Node> pills = currentGame.getPowerPillList();
-		if (pills.size() > 0)
-		actions[3] = redHunterClass.chaseObject(pills.get(pills.size() - 1));
-		else
-			actions[3] = pinkChaserClass.chaseObject(devastator.getLocation());
+		actions[3] = blueGoalieClass.updateDefender();
 
 		return actions;
 	}
@@ -87,6 +83,7 @@ public final class StudentController implements DefenderController {
 		public int updateDefender()
 		{
 			Actor closestDefender = devastator.getTargetActor(defendersList, true);
+			int closestDefenderDistance = closestDefender.getLocation().getPathDistance(devastator.getLocation());
 			if (thisDefender.getLocation().isJunction()) {
 				if (powerPillList.size() > 0) {
 					/*
@@ -101,30 +98,21 @@ public final class StudentController implements DefenderController {
 					int devastatorToPill = helpers.devastatorToPillDistance();
 					if (devastatorToPill < 5 && closestDefender == thisDefender) //if devastator is close tot the pill and hes closest defender, self sacrifice so the others can run
 						return sacrifice(thisDefender);
-					else if (devastatorToPill < 5)
+
+					else if (devastatorToPill < 5) //otherwiise if defender is close and youre not closest defender, run away
 					{
 						return flee(devastator.getLocation());
 					}
-					else
+					else //If devastator is further from pill,then follow this behabior:
 					{
 						defenderStatus defenderVulnerability = helpers.vulnerableStatus(thisDefender);
-						if (defenderVulnerability == defenderStatus.vulnerable)
+						if (defenderVulnerability == defenderStatus.vulnerable) //if the defender is vulnerable, run awat
 							return flee(devastator.getLocation());
-						else if (defenderVulnerability == defenderStatus.blinking)
+						else if (defenderVulnerability == defenderStatus.blinking) //if blinking, it should
 							return distract(thisDefender);
 						else
 							return chaseObject(devastator.getLocation());
 					}
-
-
-
-
-
-
-
-
-
-
 				}
 				else
 					return chaseObject(devastator.getLocation());
@@ -133,7 +121,6 @@ public final class StudentController implements DefenderController {
 				return 0;
 
 		}
-
 		public int chaseObject(Node target)
 		{
 			int action = 0;
@@ -175,7 +162,10 @@ public final class StudentController implements DefenderController {
 		}
 		public int distract(Defender distractor)
 		{
-			return distractor.getNextDir(helpers.getNearestEmptyNode(distractor), true);
+			Node target = helpers.getNearestEmptyNode(distractor);
+			if (target == null)
+				return distractor.getNextDir(devastator.getLocation(), false);
+			return distractor.getNextDir(target, true);
 		}
 		public int sacrifice(Defender martyr)
 		{
@@ -231,10 +221,18 @@ public final class StudentController implements DefenderController {
 			thisDefender = _thisDefender;
 		}
 		//based on the current game conditions it will decide what the defender should do
-		public void determineMode()
+		public int updateDefender()
 		{
-
+			int devastatorToPill = helpers.devastatorToPillDistance();
+			defenderStatus defenserState = helpers.vulnerableStatus(thisDefender);
+			int remainingPills = powerPillList.size();
+			if (remainingPills == 0)
+			{
+				//want to try going towards emptynode
+			}
+		return 0;
 		}
+
 		//defender will pace around the node to defend it
 		public int paceNodeMode(Node target)
 		{
@@ -357,7 +355,7 @@ public final class StudentController implements DefenderController {
 	}
 	public interface blockingDefender{
 		//based on the current game conditions it will decide what the defender should do
-		void determineMode();
+		int updateDefender();
 		//defender will pace around the node to defend it
 		int paceNodeMode(Node target);
 		//simply runs away from devastator
