@@ -32,6 +32,8 @@ public final class StudentController implements DefenderController {
 	private attackingDefender orangePursuerClass;
 	private blockingDefender blueGoalieClass;
 
+	List<Node> powerPillList;
+
 	private helperClass helpers;
 
 	public void init(Game game)
@@ -43,6 +45,7 @@ public final class StudentController implements DefenderController {
 		StudentController.this.currentGame = game;
 		StudentController.this.devastator = game.getAttacker();
 		StudentController.this.defendersList = currentGame.getDefenders();
+		powerPillList = currentGame.getPowerPillList();
 
 		redHunter = defendersList.get(0);
 		pinkChaser = defendersList.get(1);
@@ -63,9 +66,9 @@ public final class StudentController implements DefenderController {
 		//this is temporary until Hannah creates the class definition
 			actions[3] = redHunterClass.chaseObject(this.currentGame.getAttacker().getLocation()); //teal/blue = Inky
 		*/
-		actions[0] = redHunterClass.flock(redHunter, currentGame.getPowerPillList().get(0));
-		actions[1] = pinkChaserClass.flock(pinkChaser, currentGame.getPowerPillList().get(0));
-		actions[2] = orangePursuerClass.flock(orangePursuer,currentGame.getPowerPillList().get(0));
+		actions[0] = redHunterClass.sacrifice(redHunter);
+		actions[1] = pinkChaserClass.updateDefender();
+		actions[2] = orangePursuerClass.updateDefender();
 		List<Node> pills = currentGame.getPowerPillList();
 		if (pills.size() > 0)
 		actions[3] = redHunterClass.chaseObject(pills.get(pills.size() - 1));
@@ -81,17 +84,52 @@ public final class StudentController implements DefenderController {
 		{
 			thisDefender = _thisDefender;
 		}
-		public int uodateDefender()
+		public int updateDefender()
 		{
-			if (thisDefender.getLocation().isJunction());
-				return 0;
-			else
-			{
+			Actor closestDefender = devastator.getTargetActor(defendersList, true);
+			if (thisDefender.getLocation().isJunction()) {
+				if (powerPillList.size() > 0) {
+					/*
+					//This method will update the defender based on current game conditions
+					Factors to take into account
+					* Defender location
+					* Number of pills remaining
+					* distance from defender to pill
+					* how spread apart devastator is from other pills
+					*
+					 */
+					int devastatorToPill = helpers.devastatorToPillDistance();
+					if (devastatorToPill < 5 && closestDefender == thisDefender) //if devastator is close tot the pill and hes closest defender, self sacrifice so the others can run
+						return sacrifice(thisDefender);
+					else if (devastatorToPill < 15)
+					{
+						return flee(devastator.getLocation());
+					}
+					else
+					{
+						defenderStatus defenderVulnerability = helpers.vulnerableStatus(thisDefender);
+						if (defenderVulnerability == defenderStatus.vulnerable)
+							return flee(devastator.getLocation());
+						else
+							return chaseObject(devastator.getLocation());
+					}
 
+
+
+
+
+
+
+
+
+
+				}
+				else
+					return chaseObject(devastator.getLocation());
 			}
+			else
+				return 0;
 
-
-			return 0;
 		}
 
 		public int chaseObject(Node target)
@@ -162,7 +200,7 @@ public final class StudentController implements DefenderController {
 					return defender.getNextDir(pillClosestToDevastator, true);
 			}
 		}
-		public int flock(Defender defender)
+		public int flock(Actor defender)
 		{
 			Actor closestDefender = devastator.getTargetActor(defendersList, true); // determines the closest defender
 			List<Node> pathTo = defender.getPathTo(closestDefender.getLocation());
@@ -237,8 +275,7 @@ public final class StudentController implements DefenderController {
 		private Defender orangePursuer;
 		private Defender blueGoalie;
 
-		helperClass(Game _currentGame, Attacker _devastator, Defender _redHunter, Defender _pinkChaser, Defender _orangePursuer, Defender _blueGoalie)
-		{
+		helperClass(Game _currentGame, Attacker _devastator, Defender _redHunter, Defender _pinkChaser, Defender _orangePursuer, Defender _blueGoalie) {
 			currentGame = _currentGame;
 			devastator = _devastator;
 			redHunter = _redHunter;
@@ -246,14 +283,15 @@ public final class StudentController implements DefenderController {
 			orangePursuer = _orangePursuer;
 			blueGoalie = _blueGoalie;
 		}
-		public Node closestPowerPillToDevastator() {
+
+		public Node closestPowerPillToDevastator()
+		{
 			List<Node> powerPillList = currentGame.getPowerPillList();
 			if (powerPillList.size() > 0)
 				return devastator.getTargetNode(powerPillList, true);
 			else
 				return null;
 		}
-
 		public int devastatorToPillDistance()
 		{
 			Node closestPowerPill = closestPowerPillToDevastator();
@@ -261,8 +299,7 @@ public final class StudentController implements DefenderController {
 				return -1;
 			else return devastator.getLocation().getPathDistance(closestPowerPill);
 		}
-		public defenderStatus vulnerableStatus(Defender defender)
-		{
+		public defenderStatus vulnerableStatus(Defender defender) {
 			int lairTime = defender.getVulnerableTime();
 			if (lairTime == 0)
 				return defenderStatus.normal;
@@ -271,15 +308,11 @@ public final class StudentController implements DefenderController {
 			else
 				return defenderStatus.blinking;
 		}
-
-		public Node getNearestEmptyNode(Actor personOfInterest)
-		{
+		public Node getNearestEmptyNode(Actor personOfInterest) {
 			Node to = personOfInterest.getLocation();
 			List<Node> neighbors = to.getNeighbors();
-			if (neighbors.size() > 0)
-			{
-				for (Node node : neighbors)
-				{
+			if (neighbors.size() > 0) {
+				for (Node node : neighbors) {
 					if (node.isPill()) return node;
 				}
 			}
@@ -288,10 +321,7 @@ public final class StudentController implements DefenderController {
 			direction = personOfInterest.getNextDir(personOfInterest.getTargetActor(defenderList, true).getLocation(), false); //finds the closest actor and moces away from him
 			return to.getNeighbor(direction);
 		}
-
 	}
-
-
 		public interface helperMethods
 		{
 		Node closestPowerPillToDevastator();
@@ -301,6 +331,7 @@ public final class StudentController implements DefenderController {
 		}
 	public interface attackingDefender
 	{
+		int updateDefender();
 		int chaseObject(Node target);
 		int shadowObject(Actor actor);
 		int flee(Node target);
@@ -308,7 +339,7 @@ public final class StudentController implements DefenderController {
 		int sacrifice(Defender martyr);
 		int defend(Defender defender);
 		int flock(Defender defender, Node target);
-		int flock(Defender defender);
+		int flock(Actor defender);
 	}
 	public interface blockingDefender{
 		//based on the current game conditions it will decide what the defender should do
