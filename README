@@ -1,0 +1,5 @@
+The goal of this was to work in an existing code base and to create a controller for the pacman ghosts 
+that would limit pacman to a certain score.
+My work can be found by going controllers>studentcontroller. This file was created from scratch; 
+I did not modify the other files.
+Pacman score was limited greatly, this was considered a success.
